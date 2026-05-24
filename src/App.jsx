@@ -33,8 +33,8 @@ function App() {
             </div>
             <div className="herramienta">
               <div className="contenedor_herramienta">
-                
               </div>
+              <h5>observar sus cambios gráficos</h5>
             </div>
           </div>
 
