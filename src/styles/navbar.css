@@ -1,0 +1,19 @@
+@property --dark_blue{
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #13161c;
+}
+
+nav{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    position: fixed;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    width: 50%;
+    /* background-color: var(--dark_blue); */
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    border-radius: 0 0 10px 10px;
+    padding: 7px;
+}
