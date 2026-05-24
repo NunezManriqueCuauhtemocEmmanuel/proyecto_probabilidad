@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import Navbar from './components/navbar'
+import { LuChartScatter, LuCalculator, LuGitCompareArrows } from "react-icons/lu";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -23,18 +24,21 @@ function App() {
           <div className="contenedor__herramientas">
             <div className="herramienta">
               <div className="contenedor_herramienta">
+                <LuChartScatter />
               </div>
-              <h5>observar sus cambios gráficos</h5>
+              <h5>Observar sus cambios gráficos</h5>
             </div>
             <div className="herramienta">
               <div className="contenedor_herramienta">
+                <LuCalculator />
               </div>
-              <h5>observar sus cambios gráficos</h5>
+              <h5>Generar datos simulados</h5>
             </div>
             <div className="herramienta">
               <div className="contenedor_herramienta">
+                <LuGitCompareArrows />
               </div>
-              <h5>observar sus cambios gráficos</h5>
+              <h5>Comparar los resultados</h5>
             </div>
           </div>
 
