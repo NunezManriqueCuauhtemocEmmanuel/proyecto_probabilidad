@@ -82,7 +82,7 @@ nav{
 
 .icon{
     font-size: 16px;
-    color: #f9f7f7;
+    color: #8487a5;
     transition: all 0.3s ease-in-out;
 }
 
@@ -107,6 +107,7 @@ nav{
 
 .contenedor__icono:hover .icon{
     scale: 1.1;
+    color: #fff;
 }
 
 .tooltip{
@@ -115,14 +116,16 @@ nav{
     left: 50%;
     transform: translateX(-50%) translateY(10px);
     background: #ffffff;
-    color: var(--dark_blue);
+    color: #545669;
     padding: 6px 12px;
     border-radius: 10px;
-    font-size: 13px;
+    font-size: 14px;
+    font-weight: bold;
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
     transition: all 0.3s ease;
+    border-bottom: solid 2px #545669;
 }
 
 .contenedor__icono:hover .tooltip{

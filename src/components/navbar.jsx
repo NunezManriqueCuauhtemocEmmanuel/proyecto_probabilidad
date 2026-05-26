@@ -1,6 +1,16 @@
 import React, { useState } from 'react'
 import '../styles/navbar.css'
-import { LuMenu, LuHouse, LuChartColumnBig, LuChartSpline, LuTrendingUp, LuSigma } from "react-icons/lu";
+
+import {
+    LuMenu,
+    LuHouse,
+    LuChartColumnBig,
+    LuChartSpline,
+    LuTrendingUp,
+    LuSigma
+} from "react-icons/lu";
+
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
 
@@ -11,41 +21,96 @@ const Navbar = () => {
     }
 
     return (
+
         <nav>
+
             <div className="contenedor__nav">
 
+                {/* IZQUIERDA */}
+
                 <div className={`seccion__navegador ${mostrarMenu ? 'activo' : 'oculto'}`}>
-                    <div className="contenedor__icono">
+
+                    <NavLink
+                        to="/"
+                        className={({ isActive }) =>
+                            isActive
+                                ? "contenedor__icono activo"
+                                : "contenedor__icono"
+                        }
+                    >
                         <LuHouse className='icon' />
                         <span className="tooltip">Inicio</span>
-                    </div>
+                    </NavLink>
+
                 </div>
 
-                <div className={`toogle_menu ${mostrarMenu ? 'activo_btn' : ''}`} onClick={toggleMenu}>
+                <div
+                    className={`toogle_menu ${mostrarMenu ? 'activo_btn' : ''}`}
+                    onClick={toggleMenu}
+                >
                     <LuMenu />
                 </div>
 
                 <div className={`seccion__navegador ${mostrarMenu ? 'activo' : 'oculto'}`}>
-                    <div className="contenedor__icono">
+
+                    <NavLink
+                        to="/discretas"
+                        className={({ isActive }) =>
+                            isActive
+                                ? "contenedor__icono activo"
+                                : "contenedor__icono"
+                        }
+                    >
                         <LuChartColumnBig className='icon' />
                         <span className="tooltip">Discretas</span>
-                    </div>
-                    <div className="contenedor__icono">
+                    </NavLink>
+
+                    <NavLink
+                        to="/continuas"
+                        className={({ isActive }) =>
+                            isActive
+                                ? "contenedor__icono activo"
+                                : "contenedor__icono"
+                        }
+                    >
                         <LuChartSpline className='icon' />
                         <span className="tooltip">Continuas</span>
-                    </div>
-                    <div className="contenedor__icono">
+                    </NavLink>
+
+                    <NavLink
+                        to="/lgn"
+                        className={({ isActive }) =>
+                            isActive
+                                ? "contenedor__icono activo"
+                                : "contenedor__icono"
+                        }
+                    >
                         <LuTrendingUp className='icon' />
-                        <span className="tooltip">Ley de Grandes Números</span>
-                    </div>
-                    <div className="contenedor__icono">
+                        <span className="tooltip">
+                            Ley de Grandes Números
+                        </span>
+                    </NavLink>
+
+                    <NavLink
+                        to="/tlc"
+                        className={({ isActive }) =>
+                            isActive
+                                ? "contenedor__icono activo"
+                                : "contenedor__icono"
+                        }
+                    >
                         <LuSigma className='icon' />
-                        <span className="tooltip">Ley de Grandes Números</span>
-                    </div>
+                        <span className="tooltip">
+                            Teorema del Límite Central
+                        </span>
+                    </NavLink>
+
                 </div>
 
             </div>
+
         </nav>
+
     )
 }
 
