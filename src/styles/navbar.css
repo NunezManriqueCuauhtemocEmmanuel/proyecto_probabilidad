@@ -10,10 +10,133 @@ nav{
     display: flex;
     justify-content: center; 
     align-items: center;
-    width: 50%;
-    /* background-color: var(--dark_blue); */
+    width: 70%;
+    /* background-color: var(--gray_b); */
     top: 0; left: 50%;
     transform: translateX(-50%);
     border-radius: 0 0 10px 10px;
-    padding: 7px;
+    padding: 20px;
+}
+
+.contenedor__nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.seccion__navegador{
+    height: 40px;
+    width: 400px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.seccion__navegador:nth-child(1){
+    border-right: solid 3px #ffffff;
+    background-color: #545669;
+}
+
+.seccion__navegador:last-child{
+    border-left: solid 5px #ffffff;
+    background-color: #545669;
+}
+
+.seccion__navegador.oculto{
+    width: 0;
+    opacity: 0;
+    padding: 0;
+}
+
+.seccion__navegador.activo{
+    width: 400px;
+    opacity: 1;
+}
+
+.toogle_menu{
+    width: 50px; height: 50px;
+    background: var(--dark_blue);
+    border-radius: 50%;
+    box-shadow: 0 0px 50px rgba(111, 161, 240, 0.25);;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.toogle_menu.activo_btn{
+    background: #eaedf1;
+    color: #13161c;
+    transform: rotate(90deg);
+    box-shadow: 0 0 25px rgba(111, 160, 240, 0);
+    scale: 1.2;
+    border: solid 1px var(--dark_blue);
+}
+
+/* CONTENIDO DE LA BARRA */
+
+.icon{
+    font-size: 16px;
+    color: #f9f7f7;
+    transition: all 0.3s ease-in-out;
+}
+
+.contenedor__icono{
+    position: relative;
+    border-left: solid 1px #5d6079;
+    border-right: solid 1px #5d6079;
+    padding: 7px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.contenedor__icono:hover{
+    border-left: solid 0px #5d6079;
+    border-right: solid 0px #5d6079;
+    background-color: #5d6079;
+    border-radius: 10px;
+}
+
+.contenedor__icono:hover .icon{
+    scale: 1.1;
+}
+
+.tooltip{
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: #ffffff;
+    color: var(--dark_blue);
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.contenedor__icono:hover .tooltip{
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.tooltip::before{
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background: #ffffff;
 }
