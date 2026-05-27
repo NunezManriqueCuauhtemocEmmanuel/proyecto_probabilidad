@@ -3,7 +3,8 @@ import '../App.css';
 import {
     LuChartScatter,
     LuCalculator,
-    LuGitCompareArrows
+    LuGitCompareArrows,
+    LuInfinity
 } from "react-icons/lu";
 
 const Inicio = () => {
@@ -12,9 +13,32 @@ const Inicio = () => {
         <>
             <main>
                 <div className="main_titulo">
-                <h1>Datara</h1>
+                    <h1>datara</h1>
+                    <h2>Simula y comprende las <span className='blue'>distribuciones</span> de <span className='yellow'>probabilidad</span></h2>
+                    <h3>Genera datos aleatorios, ajusta parámetros en tiempo real y compara tus resultados simulados contra el modelo teórico ... <span className="blue">todo en un solo lugar</span>.</h3>
                 </div>
             </main>
+
+            <section className="acciones">
+                <div className="contenedor__acciones">
+                    <div className="accion">
+                        <h3>8</h3>
+                        <h4>distribuciones</h4>
+                    </div>
+                    <div className="accion">
+                        <h3 className='blue'>5</h3>
+                        <h4>discretas</h4>
+                    </div>
+                    <div className="accion">
+                        <h3 className='yellow'>3</h3>
+                        <h4>continuas</h4>
+                    </div>
+                    <div className="accion">
+                        <h3><LuInfinity /></h3>
+                        <h4>simulaciones</h4>
+                    </div>
+                </div>
+            </section>
 
             <section className="contenedor__contenido">
 
