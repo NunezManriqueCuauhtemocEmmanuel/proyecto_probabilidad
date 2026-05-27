@@ -16,24 +16,44 @@ function desviacionEmpirica(datos) {
 
 // CÁLCULOS TEÓRICOS (fórmulas matemáticas)
 function calcularTeorico(distribucion, parametros) {
+
+    if (distribucion === 'bernoulli') {
+
+        const { p } = parametros
+
+        const media = p
+
+        const varianza = p * (1 - p)
+
+        return {
+            media,
+            varianza,
+            desviacion: Math.sqrt(varianza)
+        }
+
+    }
+
     if (distribucion === 'binomial') {
         const { n, p } = parametros
         const media = n * p
         const varianza = n * p * (1 - p)
         return { media, varianza, desviacion: Math.sqrt(varianza) }
     }
+
     if (distribucion === 'geometrica') {
         const { p } = parametros
         const media = 1 / p
         const varianza = (1 - p) / Math.pow(p, 2)
         return { media, varianza, desviacion: Math.sqrt(varianza) }
     }
+
     if (distribucion === 'hipergeometrica') {
         const { N, K, n } = parametros
         const media = n * (K / N)
         const varianza = n * (K / N) * ((N - K) / N) * ((N - n) / (N - 1))
         return { media, varianza, desviacion: Math.sqrt(varianza) }
     }
+
 }
 
 const Estadisticos = ({ distribucion, parametros, datos, muestra }) => {
@@ -64,7 +84,7 @@ const Estadisticos = ({ distribucion, parametros, datos, muestra }) => {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Mediaa</td>
+                        <td>Media</td>
                         <td>{redondear(teorico.media)}</td>
                         <td>{redondear(empirico.media)}</td>
                         <td>{redondear(Math.abs(teorico.media - empirico.media))}</td>
