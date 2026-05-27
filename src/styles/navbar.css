@@ -16,6 +16,7 @@ nav{
     transform: translateX(-50%);
     border-radius: 0 0 10px 10px;
     padding: 20px;
+    z-index: 1000;
 }
 
 .contenedor__nav{
@@ -143,3 +144,4 @@ nav{
     height: 10px;
     background: #ffffff;
 }
+

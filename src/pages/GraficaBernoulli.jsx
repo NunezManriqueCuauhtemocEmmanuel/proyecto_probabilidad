@@ -60,8 +60,8 @@ const GraficaBernoulli = ({ p }) => {
       {
         label: `Bernoulli (p=${p})`,
         data: datos,
-        backgroundColor: 'rgba(153, 102, 255, 0.7)',
-        borderColor: 'rgba(153, 102, 255, 1)',
+        backgroundColor: '#0F172A',
+        borderColor: '#0F172A',
         borderWidth: 1
       }
     ]

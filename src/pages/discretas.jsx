@@ -221,45 +221,23 @@ const Discretas = () => {
             {/* Inputs según distribución */}
 
             <div className='entradas__discretas'>
-
                 {distribucion === 'bernoulli' && (
                     <>
-
+                    <div className="contenedor__valores">
                         <label>
-                            p (probabilidad):
+                            <p>p <span className="yellow"> (probabilidad):</span></p>
+                            <input type="number" min={0} max={1} step={0.1} value={parametros.p || ''} onChange={(e) => { const valor = Number(e.target.value); if (valor >= 0 && valor <= 1) { setParametros({...parametros, p: valor})}}}/>
 
-                            <input
-                                type="number"
-                                min={0}
-                                max={1}
-                                step={0.1}
-                                value={parametros.p || ''}
-                                onChange={(e) => {
-
-                                    const valor = Number(e.target.value)
-
-                                    if (valor >= 0 && valor <= 1) {
-
-                                        setParametros({
-                                            ...parametros,
-                                            p: valor
-                                        })
-
-                                    }
-
-                                }}
-                            />
                         </label>
-
+                    </div>
                     </>
                 )}
 
                 {distribucion === 'binomial' && (
                     <>
-
+                    <div className="contenedor__valores">
                         <label>
-                            n (intentos):
-
+                            <p>n <span className="blue">(intentos)</span></p>
                             <input
                                 type="number"
                                 min={2}
@@ -283,8 +261,7 @@ const Discretas = () => {
                         </label>
 
                         <label>
-                            p (probabilidad):
-
+                            <p>p <span className="yellow"> (probabilidad)</span></p>
                             <input
                                 type="number"
                                 min={0}
@@ -307,7 +284,7 @@ const Discretas = () => {
                                 }}
                             />
                         </label>
-
+                        </div>
                     </>
                 )}
 
@@ -455,29 +432,30 @@ const Discretas = () => {
 
             {/* Tamaño de muestra */}
 
-            <div>
+            <div className='contenedor__muestreo'>
 
                 <label>
 
-                    Tamaño de muestra:
+                    <p>Tamaño de la muestra</p>
 
-                    <input
-                        type="number"
-                        min={1}
-                        step={1}
-                        value={muestra}
-                        onChange={(e) => {
-
-                            const valor = Number(e.target.value)
-
-                            if (valor >= 1) {
-
-                                setMuestra(valor)
-
-                            }
-
-                        }}
-                    />
+                    <div className="contenedor__slider">
+                        <p>1</p>
+                        <input
+                            type="range"
+                            min={1}
+                            max={1000}
+                            step={1}
+                            className='slider'
+                            value={muestra}
+                            onChange={(e) => {
+                                const valor = Number(e.target.value)
+                                if (valor >= 1) {
+                                    setMuestra(valor)
+                                }
+                            }}
+                        />
+                        <p>1000</p>
+                    </div>
 
                 </label>
 
@@ -485,62 +463,65 @@ const Discretas = () => {
 
             {/* Botón generar */}
 
-            <button
-                onClick={() => {
+            <div className="contenedor__generar">
+                <button
+                className='generar__boton'
+                    onClick={() => {
 
-                    setGenerado(true)
+                        setGenerado(true)
 
-                    if (distribucion === 'bernoulli') {
+                        if (distribucion === 'bernoulli') {
 
-                        setDatosGenerados(
-                            generarMuestraBernoulli(
-                                parametros.p,
-                                muestra
+                            setDatosGenerados(
+                                generarMuestraBernoulli(
+                                    parametros.p,
+                                    muestra
+                                )
                             )
-                        )
 
-                    }
+                        }
 
-                    else if (distribucion === 'binomial') {
+                        else if (distribucion === 'binomial') {
 
-                        setDatosGenerados(
-                            generarMuestraBinomial(
-                                parametros.n,
-                                parametros.p,
-                                muestra
+                            setDatosGenerados(
+                                generarMuestraBinomial(
+                                    parametros.n,
+                                    parametros.p,
+                                    muestra
+                                )
                             )
-                        )
 
-                    }
+                        }
 
-                    else if (distribucion === 'geometrica') {
+                        else if (distribucion === 'geometrica') {
 
-                        setDatosGenerados(
-                            generarMuestraGeometrica(
-                                parametros.p,
-                                muestra
+                            setDatosGenerados(
+                                generarMuestraGeometrica(
+                                    parametros.p,
+                                    muestra
+                                )
                             )
-                        )
 
-                    }
+                        }
 
-                    else if (distribucion === 'hipergeometrica') {
+                        else if (distribucion === 'hipergeometrica') {
 
-                        setDatosGenerados(
-                            generarMuestraHipergeometrica(
-                                parametros.N,
-                                parametros.K,
-                                parametros.n,
-                                muestra
+                            setDatosGenerados(
+                                generarMuestraHipergeometrica(
+                                    parametros.N,
+                                    parametros.K,
+                                    parametros.n,
+                                    muestra
+                                )
                             )
-                        )
 
-                    }
+                        }
 
-                }}
-            >
-                Generar
-            </button>
+                    }}
+                >
+                    Generar
+                </button>
+            </div>
 
             {/* Gráfica */}
 
