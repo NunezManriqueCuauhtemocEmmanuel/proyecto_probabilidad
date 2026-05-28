@@ -1,16 +1,17 @@
-# React + Vite
+# Proyecto de probabilidad y estadistica
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Datara es el nombre que lleva nuestro proyecto, este proyecto esta elaborado en React-vite programado con js dentro de archivos .jsx
 
-Currently, two official plugins are available:
+Visita la pagina 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- [Datara](https://nunezmanriquecuauhtemocemmanuel.github.io/proyecto_probabilidad/)
 
-## React Compiler
+## ¿Cómo ejecutarlo?
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Para ejecutar este proyecto es necesario tener instalado en el dispositivo donde se desse emular la version mas actual de node.js asi como la carpeta descomprimida del codigo.
 
-## Expanding the ESLint configuration
+Al abrir la consola (cmd o de algun editor de texto) ejecutaR el comando npm install . para asi instalar toda la paqueteria de node necesaria, por ultimo igual en la consola se ejecuta el comando npm run dev para vvisualizar la applicación web en forma local.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Navegacion
+
+Dentro de la aplicación tendrás un botón en la parte superior que al presionar se activa la barra de navegacion la cual tendra como rutas las diferentes funciones de nuestra aplicación web. 
