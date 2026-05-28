@@ -187,7 +187,7 @@ const Estadisticos = ({ distribucion, parametros, datos, muestra }) => {
                     onClick={() => descargarCSV({ distribucion, parametros, muestra, teorico, empirico, datos, redondear })}
                     title='Descargar tabla como CSV'
                 >
-                    <LuDownload />
+                    <LuDownload className='logo__descarga'/>
                     <span>Descargar CSV</span>
                 </button>
                 <button
@@ -195,7 +195,7 @@ const Estadisticos = ({ distribucion, parametros, datos, muestra }) => {
                     onClick={() => descargarPNG(distribucion, muestra)}
                     title='Descargar gráfica como PNG'
                 >
-                    <LuImage />
+                    <LuImage className='logo__descarga' />
                     <span>Descargar PNG</span>
                 </button>
             </div>

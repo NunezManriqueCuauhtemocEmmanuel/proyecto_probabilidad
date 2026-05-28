@@ -34,3 +34,50 @@
 .tabla__resultados td{
     background-color: #dfe2ea;
 }
+
+.tabla__acciones{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.tabla__acciones button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F8FAFC;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.tabla__acciones button:nth-child(1){
+    border: solid 2px #22C55E;
+    color: #22C55E;
+}
+
+.tabla__acciones button:last-child{
+    border: solid 2px #3B82F6;
+    color: #3B82F6;
+}
+
+.logo__descarga{
+    font-size: 24px;
+    margin: 10px;
+}
+
+.tabla__acciones .boton__descarga:nth-child(1):hover{
+    background-color: #22C55E;
+    color: #F8FAFC;
+    scale: 0.9;
+}
+
+.tabla__acciones .boton__descarga:last-child:hover{
+    background-color: #3B82F6;
+    color: #F8FAFC;
+    scale: 0.9;
+}

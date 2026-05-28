@@ -50,7 +50,7 @@ const GraficaUniforme = ({ a, b }) => {
         label: `Uniforme (a=${a}, b=${b})`,
         data: datos,
         borderColor: '#22C55E',
-        backgroundColor: 'rgba(34, 197, 94, 0.15)',
+        backgroundColor: '#22C55E',
         borderWidth: 2,
         pointRadius: 3,
         fill: true,

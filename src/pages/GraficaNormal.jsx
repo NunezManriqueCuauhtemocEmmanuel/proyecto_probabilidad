@@ -59,7 +59,7 @@ const GraficaNormal = ({ mu, sigma }) => {
         label: `Normal (μ=${mu}, σ=${sigma})`,
         data: datos,
         borderColor: '#3B82F6',
-        backgroundColor: 'rgba(59, 130, 246, 0.15)',
+        backgroundColor: '#3B82F6',
         borderWidth: 2,
         pointRadius: 0,
         fill: true,

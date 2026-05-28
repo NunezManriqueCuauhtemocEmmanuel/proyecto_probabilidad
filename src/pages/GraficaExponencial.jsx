@@ -56,7 +56,7 @@ const GraficaExponencial = ({ lambda }) => {
         label: `Exponencial (λ=${lambda})`,
         data: datos,
         borderColor: '#F97316',
-        backgroundColor: 'rgba(249, 115, 22, 0.15)',
+        backgroundColor: '#F97316',
         borderWidth: 2,
         pointRadius: 0,
         fill: true,
