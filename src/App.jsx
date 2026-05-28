@@ -1,6 +1,7 @@
 import './App.css'
 
 import Navbar from './components/navbar'
+import Footer from './components/footer.jsx'
 
 import {
   BrowserRouter,
@@ -35,6 +36,8 @@ function App() {
         <Route path="/TeoremaLC" element={<TeoremaLC />} />
 
       </Routes>
+
+      <Footer />
 
     </BrowserRouter>
 

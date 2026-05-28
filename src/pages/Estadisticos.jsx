@@ -1,7 +1,8 @@
 import React from 'react'
 import '../styles/estadisticas.css'
+import { LuDownload, LuImage } from 'react-icons/lu'
 
-// CÁLCULOS EMPÍRICOS (de los datos generados)
+// CÁLCULOS EMPÍRICOS
 function mediaEmpirica(datos) {
     return datos.reduce((a, b) => a + b, 0) / datos.length
 }
@@ -15,7 +16,7 @@ function desviacionEmpirica(datos) {
     return Math.sqrt(varianzaEmpirica(datos))
 }
 
-// CÁLCULOS TEÓRICOS (fórmulas matemáticas)
+// CÁLCULOS TEÓRICOS
 function calcularTeorico(distribucion, parametros) {
 
     if (distribucion === 'bernoulli') {
@@ -71,6 +72,66 @@ function calcularTeorico(distribucion, parametros) {
     }
 }
 
+// DESCARGA CSV
+function descargarCSV({ distribucion, parametros, muestra, teorico, empirico, datos, redondear }) {
+    const filas = [
+        ['Distribución', distribucion],
+        ['Muestra', muestra],
+        ['Parámetros', JSON.stringify(parametros)],
+        [],
+        ['Concepto', 'Teórico', 'Empírico', 'Diferencia'],
+        ['Media',
+            redondear(teorico.media),
+            redondear(empirico.media),
+            redondear(Math.abs(teorico.media - empirico.media))
+        ],
+        ['Varianza',
+            redondear(teorico.varianza),
+            redondear(empirico.varianza),
+            redondear(Math.abs(teorico.varianza - empirico.varianza))
+        ],
+        ['Desv. Estándar',
+            redondear(teorico.desviacion),
+            redondear(empirico.desviacion),
+            redondear(Math.abs(teorico.desviacion - empirico.desviacion))
+        ],
+        [],
+        ['# Datos generados'],
+        ['Índice', 'Valor'],
+        ...datos.map((v, i) => [i + 1, v])
+    ]
+
+    const csv = filas.map(f => f.join(',')).join('\n')
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `datara_${distribucion}_n${muestra}.csv`
+    a.click()
+    URL.revokeObjectURL(url)
+}
+
+// DESCARGA PNG — busca el canvas directamente en el DOM
+function descargarPNG(distribucion, muestra) {
+    const canvas = document.querySelector('.grafica canvas')
+    if (!canvas) return
+
+    // Crear canvas temporal con fondo blanco para que el PNG no sea transparente
+    const temp = document.createElement('canvas')
+    temp.width = canvas.width
+    temp.height = canvas.height
+    const ctx = temp.getContext('2d')
+    ctx.fillStyle = '#ffffff'
+    ctx.fillRect(0, 0, temp.width, temp.height)
+    ctx.drawImage(canvas, 0, 0)
+
+    const url = temp.toDataURL('image/png')
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `datara_${distribucion}_n${muestra}.png`
+    a.click()
+}
+
 const Estadisticos = ({ distribucion, parametros, datos, muestra }) => {
 
     if (!datos || datos.length === 0) return null
@@ -82,12 +143,13 @@ const Estadisticos = ({ distribucion, parametros, datos, muestra }) => {
     }
 
     const teorico = calcularTeorico(distribucion, parametros)
-
     const redondear = (n) => Math.round(n * 10000) / 10000
 
     return (
         <div className='tabla__resultados'>
+
             <h3>Resultados (muestra: {muestra})</h3>
+
             <table>
                 <thead>
                     <tr>
@@ -118,6 +180,26 @@ const Estadisticos = ({ distribucion, parametros, datos, muestra }) => {
                     </tr>
                 </tbody>
             </table>
+
+            <div className='tabla__acciones'>
+                <button
+                    className='boton__descarga'
+                    onClick={() => descargarCSV({ distribucion, parametros, muestra, teorico, empirico, datos, redondear })}
+                    title='Descargar tabla como CSV'
+                >
+                    <LuDownload />
+                    <span>Descargar CSV</span>
+                </button>
+                <button
+                    className='boton__descarga'
+                    onClick={() => descargarPNG(distribucion, muestra)}
+                    title='Descargar gráfica como PNG'
+                >
+                    <LuImage />
+                    <span>Descargar PNG</span>
+                </button>
+            </div>
+
         </div>
     )
 }
