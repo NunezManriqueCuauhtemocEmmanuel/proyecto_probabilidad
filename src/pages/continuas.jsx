@@ -217,7 +217,7 @@ const Continuas = () => {
                         />
                         <p>1000</p>
                     </div>
-                    <span>{muestra}</span>
+                    <p>{muestra}</p>
                 </label>
             </div>
 

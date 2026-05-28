@@ -501,7 +501,7 @@ const Discretas = () => {
 
                     </div>
 
-                    <span>{muestra}</span>
+                    <p>{muestra}</p>
 
                 </label>
 

@@ -12,6 +12,7 @@ import Inicio from "./pages/inicio.jsx";
 import Discretas from "./pages/discretas.jsx";
 import Continuas from "./pages/continuas.jsx";
 import LeyGN from "./pages/LeyGN.jsx"
+import TeoremaLC from "./pages/TeoremaLC.jsx"
 
 function App() {
 
@@ -30,6 +31,8 @@ function App() {
         <Route path="/continuas" element={<Continuas />} />
 
         <Route path="/LeyGN" element={<LeyGN />} />
+
+        <Route path="/TeoremaLC" element={<TeoremaLC />} />
 
       </Routes>
 

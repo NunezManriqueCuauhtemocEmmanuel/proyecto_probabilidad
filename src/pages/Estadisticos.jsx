@@ -18,7 +18,6 @@ function desviacionEmpirica(datos) {
 // CÁLCULOS TEÓRICOS (fórmulas matemáticas)
 function calcularTeorico(distribucion, parametros) {
 
-    // ── Discretas ──────────────────────────────────────────
     if (distribucion === 'bernoulli') {
         const { p } = parametros
         const media = p
@@ -52,7 +51,6 @@ function calcularTeorico(distribucion, parametros) {
         return { media: lambda, varianza: lambda, desviacion: Math.sqrt(lambda) }
     }
 
-    // ── Continuas ──────────────────────────────────────────
     if (distribucion === 'normal') {
         const { mu, sigma } = parametros
         return { media: mu, varianza: Math.pow(sigma, 2), desviacion: sigma }

@@ -92,7 +92,7 @@ const Navbar = () => {
                     </NavLink>
 
                     <NavLink
-                        to="/tlc"
+                        to="/Teoremalc"
                         className={({ isActive }) =>
                             isActive
                                 ? "contenedor__icono activo"
