@@ -1,4 +1,5 @@
 import React from 'react'
+import '../styles/estadisticas.css'
 
 // CÁLCULOS EMPÍRICOS (de los datos generados)
 function mediaEmpirica(datos) {
@@ -17,20 +18,12 @@ function desviacionEmpirica(datos) {
 // CÁLCULOS TEÓRICOS (fórmulas matemáticas)
 function calcularTeorico(distribucion, parametros) {
 
+    // ── Discretas ──────────────────────────────────────────
     if (distribucion === 'bernoulli') {
-
         const { p } = parametros
-
         const media = p
-
         const varianza = p * (1 - p)
-
-        return {
-            media,
-            varianza,
-            desviacion: Math.sqrt(varianza)
-        }
-
+        return { media, varianza, desviacion: Math.sqrt(varianza) }
     }
 
     if (distribucion === 'binomial') {
@@ -54,6 +47,30 @@ function calcularTeorico(distribucion, parametros) {
         return { media, varianza, desviacion: Math.sqrt(varianza) }
     }
 
+    if (distribucion === 'poisson') {
+        const { lambda } = parametros
+        return { media: lambda, varianza: lambda, desviacion: Math.sqrt(lambda) }
+    }
+
+    // ── Continuas ──────────────────────────────────────────
+    if (distribucion === 'normal') {
+        const { mu, sigma } = parametros
+        return { media: mu, varianza: Math.pow(sigma, 2), desviacion: sigma }
+    }
+
+    if (distribucion === 'uniforme') {
+        const { a, b } = parametros
+        const media = (a + b) / 2
+        const varianza = Math.pow(b - a, 2) / 12
+        return { media, varianza, desviacion: Math.sqrt(varianza) }
+    }
+
+    if (distribucion === 'exponencial') {
+        const { lambda } = parametros
+        const media = 1 / lambda
+        const varianza = 1 / Math.pow(lambda, 2)
+        return { media, varianza, desviacion: Math.sqrt(varianza) }
+    }
 }
 
 const Estadisticos = ({ distribucion, parametros, datos, muestra }) => {
@@ -71,8 +88,8 @@ const Estadisticos = ({ distribucion, parametros, datos, muestra }) => {
     const redondear = (n) => Math.round(n * 10000) / 10000
 
     return (
-        <div>
-            <h3>Resultados — {distribucion} (muestra: {muestra})</h3>
+        <div className='tabla__resultados'>
+            <h3>Resultados (muestra: {muestra})</h3>
             <table>
                 <thead>
                     <tr>

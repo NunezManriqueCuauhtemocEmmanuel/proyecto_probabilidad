@@ -6,6 +6,7 @@ import GraficaBernoulli from './GraficaBernoulli.jsx'
 import GraficaBinomial from './GraficaBinomial.jsx'
 import GraficaGeometrica from './GraficaGeometrica.jsx'
 import GraficaHipergeometrica from './GraficaHipergeometrica.jsx'
+import GraficaPoisson from './GraficaPoisson.jsx'
 
 import Estadisticos from './Estadisticos.jsx'
 
@@ -13,7 +14,9 @@ import {
     LuChartScatter,
     LuChartColumnStacked,
     LuRepeat,
-    LuLayers  
+    LuLayers,
+    LuSparkles,
+    LuActivity
 } from "react-icons/lu";
 
 const Discretas = () => {
@@ -25,13 +28,12 @@ const Discretas = () => {
         p: 0.5,
         maxK: 20,
         N: 50,
-        K: 10
+        K: 10,
+        lambda: 4
     })
 
     const [muestra, setMuestra] = useState(100)
-
     const [generado, setGenerado] = useState(false)
-
     const [datosGenerados, setDatosGenerados] = useState([])
 
     const generarMuestraBernoulli = (p, tam) => {
@@ -39,23 +41,10 @@ const Discretas = () => {
         const datos = []
 
         for (let i = 0; i < tam; i++) {
-
-            if (Math.random() < p) {
-
-                datos.push(1)
-
-            }
-
-            else {
-
-                datos.push(0)
-
-            }
-
+            datos.push(Math.random() < p ? 1 : 0)
         }
 
         return datos
-
     }
 
     const generarMuestraBinomial = (n, p, tam) => {
@@ -67,17 +56,13 @@ const Discretas = () => {
             let exitos = 0
 
             for (let j = 0; j < n; j++) {
-
                 if (Math.random() < p) exitos++
-
             }
 
             datos.push(exitos)
-
         }
 
         return datos
-
     }
 
     const generarMuestraGeometrica = (p, tam) => {
@@ -91,11 +76,9 @@ const Discretas = () => {
             while (Math.random() >= p) intentos++
 
             datos.push(intentos)
-
         }
 
         return datos
-
     }
 
     const generarMuestraHipergeometrica = (N, K, n, tam) => {
@@ -105,31 +88,44 @@ const Discretas = () => {
         for (let i = 0; i < tam; i++) {
 
             let exitos = 0
-
             let poblacion = N
-
             let exitosPoblacion = K
 
             for (let j = 0; j < n; j++) {
 
                 if (Math.random() < exitosPoblacion / poblacion) {
-
                     exitos++
-
                     exitosPoblacion--
-
                 }
 
                 poblacion--
-
             }
 
             datos.push(exitos)
-
         }
 
         return datos
+    }
 
+    const generarMuestraPoisson = (lambda, tam) => {
+
+        const datos = []
+
+        for (let i = 0; i < tam; i++) {
+
+            let L = Math.exp(-lambda)
+            let p = 1
+            let k = 0
+
+            do {
+                k++
+                p *= Math.random()
+            } while (p > L)
+
+            datos.push(k - 1)
+        }
+
+        return datos
     }
 
     return (
@@ -163,11 +159,8 @@ const Discretas = () => {
                 <button
                     className={distribucion === 'bernoulli' ? 'activo' : ''}
                     onClick={() => {
-
                         setDistribucion('bernoulli')
-
                         setGenerado(false)
-
                     }}
                 >
                     <LuChartScatter />
@@ -177,11 +170,8 @@ const Discretas = () => {
                 <button
                     className={distribucion === 'binomial' ? 'activo' : ''}
                     onClick={() => {
-
                         setDistribucion('binomial')
-
                         setGenerado(false)
-
                     }}
                 >
                     <LuChartColumnStacked />
@@ -191,11 +181,8 @@ const Discretas = () => {
                 <button
                     className={distribucion === 'geometrica' ? 'activo' : ''}
                     onClick={() => {
-
                         setDistribucion('geometrica')
-
                         setGenerado(false)
-
                     }}
                 >
                     <LuRepeat />
@@ -205,15 +192,23 @@ const Discretas = () => {
                 <button
                     className={distribucion === 'hipergeometrica' ? 'activo' : ''}
                     onClick={() => {
-
                         setDistribucion('hipergeometrica')
-
                         setGenerado(false)
-
                     }}
                 >
                     <LuLayers />
                     <p>Hipergeométrica</p>
+                </button>
+
+                <button
+                    className={distribucion === 'poisson' ? 'activo' : ''}
+                    onClick={() => {
+                        setDistribucion('poisson')
+                        setGenerado(false)
+                    }}
+                >
+                    <LuActivity />
+                    <p>Poisson</p>
                 </button>
 
             </div>
@@ -221,23 +216,45 @@ const Discretas = () => {
             {/* Inputs según distribución */}
 
             <div className='entradas__discretas'>
+
                 {distribucion === 'bernoulli' && (
-                    <>
                     <div className="contenedor__valores">
+
                         <label>
-                            <p>p <span className="yellow"> (probabilidad):</span></p>
-                            <input type="number" min={0} max={1} step={0.1} value={parametros.p || ''} onChange={(e) => { const valor = Number(e.target.value); if (valor >= 0 && valor <= 1) { setParametros({...parametros, p: valor})}}}/>
+
+                            <p>p <span className="yellow">(probabilidad)</span></p>
+
+                            <input
+                                type="number"
+                                min={0}
+                                max={1}
+                                step={0.1}
+                                value={parametros.p || ''}
+                                onChange={(e) => {
+
+                                    const valor = Number(e.target.value)
+
+                                    if (valor >= 0 && valor <= 1) {
+                                        setParametros({
+                                            ...parametros,
+                                            p: valor
+                                        })
+                                    }
+                                }}
+                            />
 
                         </label>
+
                     </div>
-                    </>
                 )}
 
                 {distribucion === 'binomial' && (
-                    <>
                     <div className="contenedor__valores">
+
                         <label>
+
                             <p>n <span className="blue">(intentos)</span></p>
+
                             <input
                                 type="number"
                                 min={2}
@@ -248,20 +265,20 @@ const Discretas = () => {
                                     const valor = Number(e.target.value)
 
                                     if (valor >= 2) {
-
                                         setParametros({
                                             ...parametros,
                                             n: valor
                                         })
-
                                     }
-
                                 }}
                             />
+
                         </label>
 
                         <label>
-                            <p>p <span className="yellow"> (probabilidad)</span></p>
+
+                            <p>p <span className="yellow">(probabilidad)</span></p>
+
                             <input
                                 type="number"
                                 min={0}
@@ -273,53 +290,25 @@ const Discretas = () => {
                                     const valor = Number(e.target.value)
 
                                     if (valor >= 0 && valor <= 1) {
-
                                         setParametros({
                                             ...parametros,
                                             p: valor
                                         })
-
                                     }
-
                                 }}
                             />
+
                         </label>
-                        </div>
-                    </>
+
+                    </div>
                 )}
 
                 {distribucion === 'geometrica' && (
-                    <>
-
-                        <label>
-                            p (probabilidad):
-
-                            <input
-                                type="number"
-                                min={0}
-                                max={1}
-                                step={0.1}
-                                value={parametros.p || ''}
-                                onChange={(e) => {
-
-                                    const valor = Number(e.target.value)
-
-                                    if (valor >= 0 && valor <= 1) {
-
-                                        setParametros({
-                                            ...parametros,
-                                            p: valor
-                                        })
-
-                                    }
-
-                                }}
-                            />
-                        </label>
+                    <div className="contenedor__valores">
 
                         <label>
 
-                            Máximo de intentos (n):
+                            <p>n <span className="blue">(intentos)</span></p>
 
                             <input
                                 type="number"
@@ -331,27 +320,50 @@ const Discretas = () => {
                                     const valor = Number(e.target.value)
 
                                     if (valor >= 1) {
-
                                         setParametros({
                                             ...parametros,
                                             maxK: valor
                                         })
-
                                     }
-
                                 }}
                             />
 
                         </label>
 
-                    </>
+                        <label>
+
+                            <p>p <span className="yellow">(probabilidad)</span></p>
+
+                            <input
+                                type="number"
+                                min={0}
+                                max={1}
+                                step={0.1}
+                                value={parametros.p || ''}
+                                onChange={(e) => {
+
+                                    const valor = Number(e.target.value)
+
+                                    if (valor >= 0 && valor <= 1) {
+                                        setParametros({
+                                            ...parametros,
+                                            p: valor
+                                        })
+                                    }
+                                }}
+                            />
+
+                        </label>
+
+                    </div>
                 )}
 
                 {distribucion === 'hipergeometrica' && (
-                    <>
+                    <div className="contenedor__valores">
 
                         <label>
-                            N (población):
+
+                            <p>N <span className="blue">(población)</span></p>
 
                             <input
                                 type="number"
@@ -363,20 +375,19 @@ const Discretas = () => {
                                     const valor = Number(e.target.value)
 
                                     if (valor >= 1) {
-
                                         setParametros({
                                             ...parametros,
                                             N: valor
                                         })
-
                                     }
-
                                 }}
                             />
+
                         </label>
 
                         <label>
-                            K (éxitos en población):
+
+                            <p>K <span className="yellow">(éxitos en la población)</span></p>
 
                             <input
                                 type="number"
@@ -388,20 +399,19 @@ const Discretas = () => {
                                     const valor = Number(e.target.value)
 
                                     if (valor >= 0 && valor <= parametros.N) {
-
                                         setParametros({
                                             ...parametros,
                                             K: valor
                                         })
-
                                     }
-
                                 }}
                             />
+
                         </label>
 
                         <label>
-                            n (muestra):
+
+                            <p>n <span className="blue">(muestra)</span></p>
 
                             <input
                                 type="number"
@@ -413,19 +423,47 @@ const Discretas = () => {
                                     const valor = Number(e.target.value)
 
                                     if (valor >= 1 && valor <= parametros.N) {
-
                                         setParametros({
                                             ...parametros,
                                             n: valor
                                         })
-
                                     }
-
                                 }}
                             />
+
                         </label>
 
-                    </>
+                    </div>
+                )}
+
+                {distribucion === 'poisson' && (
+                    <div className="contenedor__valores">
+
+                        <label>
+
+                            <p>λ <span className="yellow">(media de eventos)</span></p>
+
+                            <input
+                                type="number"
+                                min={1}
+                                step={1}
+                                value={parametros.lambda || ''}
+                                onChange={(e) => {
+
+                                    const valor = Number(e.target.value)
+
+                                    if (valor >= 1) {
+                                        setParametros({
+                                            ...parametros,
+                                            lambda: valor
+                                        })
+                                    }
+                                }}
+                            />
+
+                        </label>
+
+                    </div>
                 )}
 
             </div>
@@ -439,7 +477,9 @@ const Discretas = () => {
                     <p>Tamaño de la muestra</p>
 
                     <div className="contenedor__slider">
+
                         <p>1</p>
+
                         <input
                             type="range"
                             min={1}
@@ -448,14 +488,20 @@ const Discretas = () => {
                             className='slider'
                             value={muestra}
                             onChange={(e) => {
+
                                 const valor = Number(e.target.value)
+
                                 if (valor >= 1) {
                                     setMuestra(valor)
                                 }
                             }}
                         />
+
                         <p>1000</p>
+
                     </div>
+
+                    <span>{muestra}</span>
 
                 </label>
 
@@ -464,8 +510,9 @@ const Discretas = () => {
             {/* Botón generar */}
 
             <div className="contenedor__generar">
+
                 <button
-                className='generar__boton'
+                    className='generar__boton'
                     onClick={() => {
 
                         setGenerado(true)
@@ -479,9 +526,7 @@ const Discretas = () => {
                                 )
                             )
 
-                        }
-
-                        else if (distribucion === 'binomial') {
+                        } else if (distribucion === 'binomial') {
 
                             setDatosGenerados(
                                 generarMuestraBinomial(
@@ -491,9 +536,7 @@ const Discretas = () => {
                                 )
                             )
 
-                        }
-
-                        else if (distribucion === 'geometrica') {
+                        } else if (distribucion === 'geometrica') {
 
                             setDatosGenerados(
                                 generarMuestraGeometrica(
@@ -502,9 +545,7 @@ const Discretas = () => {
                                 )
                             )
 
-                        }
-
-                        else if (distribucion === 'hipergeometrica') {
+                        } else if (distribucion === 'hipergeometrica') {
 
                             setDatosGenerados(
                                 generarMuestraHipergeometrica(
@@ -515,20 +556,27 @@ const Discretas = () => {
                                 )
                             )
 
-                        }
+                        } else if (distribucion === 'poisson') {
 
+                            setDatosGenerados(
+                                generarMuestraPoisson(
+                                    parametros.lambda,
+                                    muestra
+                                )
+                            )
+                        }
                     }}
                 >
-                    Generar
+                    <LuSparkles className='icon__generar' />
+                    <p>Generar</p>
                 </button>
+
             </div>
 
-            {/* Gráfica */}
+            {/* Gráficas */}
 
             {generado && distribucion === 'bernoulli' && (
-                <GraficaBernoulli
-                    p={parametros.p}
-                />
+                <GraficaBernoulli p={parametros.p} />
             )}
 
             {generado && distribucion === 'binomial' && (
@@ -551,6 +599,10 @@ const Discretas = () => {
                     K={parametros.K}
                     n={parametros.n}
                 />
+            )}
+
+            {generado && distribucion === 'poisson' && (
+                <GraficaPoisson lambda={parametros.lambda} />
             )}
 
             {generado && (

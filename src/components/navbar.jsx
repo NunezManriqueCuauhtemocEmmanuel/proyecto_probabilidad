@@ -78,7 +78,7 @@ const Navbar = () => {
                     </NavLink>
 
                     <NavLink
-                        to="/lgn"
+                        to="/leygn"
                         className={({ isActive }) =>
                             isActive
                                 ? "contenedor__icono activo"

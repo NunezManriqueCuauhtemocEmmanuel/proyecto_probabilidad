@@ -40,8 +40,8 @@ const GraficaGeometrica=({p,maxK})=>{
       {
         label:`Geométrica (p=${p})`,
         data:datos,
-        backgroundColor:'rgba(255,99,132,0.7)',
-        borderColor:'rgba(255,99,132,1)',
+        backgroundColor:'#3B82F6',
+        borderColor:'#3B82F6',
         borderWidth:1
       }
     ]
@@ -76,7 +76,7 @@ const GraficaGeometrica=({p,maxK})=>{
   };
 
   return(
-    <div style={{width:'600px',margin:'0 auto'}}>
+    <div className='grafica'>
       <Bar data={data} options={opciones}/>
     </div>
   );

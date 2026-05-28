@@ -10,6 +10,8 @@ import {
 
 import Inicio from "./pages/inicio.jsx";
 import Discretas from "./pages/discretas.jsx";
+import Continuas from "./pages/continuas.jsx";
+import LeyGN from "./pages/LeyGN.jsx"
 
 function App() {
 
@@ -24,6 +26,10 @@ function App() {
         <Route path="/" element={<Inicio />} />
 
         <Route path="/discretas" element={<Discretas />} />
+
+        <Route path="/continuas" element={<Continuas />} />
+
+        <Route path="/LeyGN" element={<LeyGN />} />
 
       </Routes>
 

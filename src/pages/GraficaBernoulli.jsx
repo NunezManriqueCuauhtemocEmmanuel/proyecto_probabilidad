@@ -1,4 +1,6 @@
 import React from 'react'
+import '../styles/grafica.css';
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -60,8 +62,8 @@ const GraficaBernoulli = ({ p }) => {
       {
         label: `Bernoulli (p=${p})`,
         data: datos,
-        backgroundColor: '#0F172A',
-        borderColor: '#0F172A',
+        backgroundColor: '#EAB308',
+        borderColor: '#EAB308',
         borderWidth: 1
       }
     ]
@@ -111,7 +113,7 @@ const GraficaBernoulli = ({ p }) => {
   }
 
   return (
-    <div style={{ width: '600px', margin: '0 auto' }}>
+    <div className='grafica'>
       <Bar data={data} options={opciones} />
     </div>
   )

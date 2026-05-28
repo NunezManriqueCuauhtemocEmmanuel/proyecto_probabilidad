@@ -28,54 +28,36 @@ function factorial(n) {
   return n * factorial(n - 1)
 }
 
-// Combinatoria C(n,k)
-function combinatoria(n, k) {
-
-  if (k < 0 || k > n) return 0
-
-  return factorial(n) / (factorial(k) * factorial(n - k))
-}
-
-// Probabilidad hipergeométrica
-function probabilidadHipergeometrica(N, K, n, k) {
+// Probabilidad Poisson
+function probabilidadPoisson(lambda, k) {
 
   return (
-    combinatoria(K, k) *
-    combinatoria(N - K, n - k)
-  ) / combinatoria(N, n)
+    Math.pow(lambda, k) *
+    Math.exp(-lambda)
+  ) / factorial(k)
 
 }
 
-const GraficaHipergeometrica = ({ N, K, n }) => {
+const GraficaPoisson = ({ lambda }) => {
 
   // Validaciones
-  if (N <= 0 || K < 0 || n <= 0) {
-    return <p>Parámetros inválidos</p>
-  }
-
-  if (K > N) {
-    return <p>K no puede ser mayor que N</p>
-  }
-
-  if (n > N) {
-    return <p>n no puede ser mayor que N</p>
+  if (lambda <= 0) {
+    return <p>Lambda debe ser mayor que 0</p>
   }
 
   const labels = []
 
   const datos = []
 
-  // k va desde 0 hasta min(n,K)
-  const maxK = Math.min(n, K)
+  // Rango de k
+  const maxK = Math.ceil(lambda * 3)
 
   for (let k = 0; k <= maxK; k++) {
 
     labels.push(`k=${k}`)
 
-    const prob = probabilidadHipergeometrica(
-      N,
-      K,
-      n,
+    const prob = probabilidadPoisson(
+      lambda,
       k
     )
 
@@ -87,10 +69,10 @@ const GraficaHipergeometrica = ({ N, K, n }) => {
     labels,
     datasets: [
       {
-        label: `Hipergeométrica (N=${N}, K=${K}, n=${n})`,
+        label: `Poisson (λ=${lambda})`,
         data: datos,
-        backgroundColor: 'rgba(75, 192, 192, 0.7)',
-        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(153, 102, 255, 0.7)',
+        borderColor: 'rgba(153, 102, 255, 1)',
         borderWidth: 1
       }
     ]
@@ -108,7 +90,7 @@ const GraficaHipergeometrica = ({ N, K, n }) => {
 
       title: {
         display: true,
-        text: 'Distribución Hipergeométrica'
+        text: 'Distribución Poisson'
       }
 
     },
@@ -119,7 +101,7 @@ const GraficaHipergeometrica = ({ N, K, n }) => {
 
         title: {
           display: true,
-          text: 'Número de éxitos (k)'
+          text: 'Número de eventos (k)'
         }
 
       },
@@ -146,4 +128,4 @@ const GraficaHipergeometrica = ({ N, K, n }) => {
   )
 }
 
-export default GraficaHipergeometrica
+export default GraficaPoisson

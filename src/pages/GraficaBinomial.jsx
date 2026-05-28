@@ -49,8 +49,8 @@ const GraficaBinomial = ({ n, p }) => {
       {
         label: `Binomial (n=${n}, p=${p})`,
         data: datos,
-        backgroundColor: 'rgba(54, 162, 235, 0.7)',
-        borderColor: 'rgba(54, 162, 235, 1)',
+        backgroundColor: '#0F172A',
+        borderColor: '#0F172A',
         borderWidth: 1
       }
     ]
@@ -85,7 +85,7 @@ const GraficaBinomial = ({ n, p }) => {
 };
 
   return (
-    <div style={{ width: '600px', margin: '0 auto' }}>
+    <div className='grafica'>
       <Bar data={data} options={opciones} />
     </div>
   )
